@@ -1,0 +1,17 @@
+@import './base.css';
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 30px;
+}
+
+@media (min-width: 481px) {
+  
+  #app {
+    margin: 0 auto;
+    max-width: 500px;
+  }
+}
