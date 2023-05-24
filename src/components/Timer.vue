@@ -1,5 +1,11 @@
 <script setup lang="ts">
     import TimeDisplay from './TimeDisplay.vue';
+    import { ref } from 'vue';
+
+    const duration = ref()
+    
+    
+    
 </script>
 
 <template>
@@ -16,6 +22,7 @@
             <button>15min</button>
         </div>
         <button class="set-custom-btn">Set custom time</button>
+        <input v-model="duration" type="number">
     </div>
 </template>
 

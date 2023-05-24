@@ -6,14 +6,14 @@
     
     
 
-    const startTimer = function() {
+    const startTimer = function(time: number) {
         
         setInterval(()=> {
             let hours, minutes, seconds:number
 
-            hours = (Math.floor((duration.value / 60)/60))
-            minutes = Math.floor((duration.value / 60) - (hours*60))
-            seconds = Math.floor(duration.value % 60)
+            hours = (Math.floor((time / 60)/60))
+            minutes = Math.floor((time / 60) - (hours*60))
+            seconds = Math.floor(time % 60)
 
             let hourString = hours < 10 ? '0' + hours : hours
             let minuteString = minutes < 10 ? '0' + minutes : minutes
@@ -21,7 +21,7 @@
             
             clock.value = `${hourString}:${minuteString}:${secondsString}`
             
-            duration.value--
+            time--
         }, 1000)
         
     }
@@ -30,7 +30,7 @@
 
 </script>
 
-<template>
+<template  @start-timer="startTimer(duration)">
     <div class="circle">
         <h2>{{clock}}</h2>
     </div>
