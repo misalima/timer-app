@@ -18,7 +18,7 @@
   }
 
   header h1 {
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bold;
     color: var(--color-dark);
   }

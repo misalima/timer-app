@@ -1,36 +1,56 @@
 <script setup lang="ts">
-    import {ref} from 'vue'
+    import {ref, computed, watch} from 'vue'
     
     const clock = ref("00:00:00")
-    const duration = ref(3600)
+    const props = defineProps<{
+        duration: number,
+        isStarted: boolean
+    }>()
     
+    const isStarted = computed(()=> {
+        return props.isStarted
+    })
     
+    const duration = computed(()=> {
+        return props.duration
+    })
 
-    const startTimer = function(time: number) {
-        
+
+
+    const startTimer = function() {
+        let time:number = props.duration
+        console.log(time)
         setInterval(()=> {
-            let hours, minutes, seconds:number
-
-            hours = (Math.floor((time / 60)/60))
-            minutes = Math.floor((time / 60) - (hours*60))
-            seconds = Math.floor(time % 60)
-
-            let hourString = hours < 10 ? '0' + hours : hours
-            let minuteString = minutes < 10 ? '0' + minutes : minutes
-            let secondsString = seconds < 10 ? '0' + seconds : seconds
-            
-            clock.value = `${hourString}:${minuteString}:${secondsString}`
-            
+            updateDisplay()
             time--
         }, 1000)
         
     }
 
+    function updateDisplay() {
+        let time = props.duration
+        let hours, minutes, seconds:number
+
+        hours = (Math.floor((time / 60)/60))
+        minutes = Math.floor((time / 60) - (hours*60))
+        seconds = Math.floor(time % 60)
+
+        let hourString = hours < 10 ? '0' + hours : hours
+        let minuteString = minutes < 10 ? '0' + minutes : minutes
+        let secondsString = seconds < 10 ? '0' + seconds : seconds
+            
+        clock.value = `${hourString}:${minuteString}:${secondsString}`
+    }
+    
+    watch(isStarted, startTimer)
+    watch(duration, updateDisplay)
+    
+
     
 
 </script>
 
-<template  @start-timer="startTimer(duration)">
+<template >
     <div class="circle">
         <h2>{{clock}}</h2>
     </div>

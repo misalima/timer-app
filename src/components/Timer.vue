@@ -2,7 +2,25 @@
     import TimeDisplay from './TimeDisplay.vue';
     import { ref } from 'vue';
 
-    const duration = ref()
+    const duration = ref(15)
+    const isStarted = ref(false)
+    let updatedDuration:number
+
+    function setDuration(time:number){
+        
+        updatedDuration = time
+        console.log(updatedDuration, typeof(updatedDuration));
+        
+    }
+    
+    function toggleClockState() {
+        if(isStarted.value) {
+            isStarted.value = false
+        } else {
+            isStarted.value = true
+        }
+        
+    }
     
     
     
@@ -10,19 +28,19 @@
 
 <template>
     <div class="container">
-        <TimeDisplay />
+        <TimeDisplay :duration="updatedDuration" :is-started="isStarted"/>
         <div class="control-buttons">
             <button><font-awesome-icon icon="fa-solid fa-play" size="xl"/></button>
             <button><font-awesome-icon icon="fa-solid fa-pause" size="xl" /></button>
-            <button><font-awesome-icon icon="fa-solid fa-plus-circle" size="xl"/></button>
+            <button @click="toggleClockState()"><font-awesome-icon icon="fa-solid fa-plus-circle" size="xl"/></button>
         </div>
         <div class="presets-buttons">
-            <button>1h</button>
-            <button>30min</button>
+            <button @click="setDuration(3600)">1h</button>
+            <button>{{duration}}</button>
             <button>15min</button>
         </div>
-        <button class="set-custom-btn">Set custom time</button>
-        <input v-model="duration" type="number">
+        <button @click="setDuration(duration)" class="set-custom-btn">Set custom time</button>
+        <input v-model.number="duration" type="number">
     </div>
 </template>
 
@@ -35,12 +53,12 @@
         justify-content: center;
         flex-wrap: nowrap;
         flex-direction: column;
-        gap: 30px;
+        gap: 20px;
         margin-top: 16px;
     }
     .control-buttons button {
-        height: 4em;
-        width: 4em;
+        height: 3.5em;
+        width: 3.5em;
         border: none;
         border-radius: 100%;
         margin: 0px 8px;
