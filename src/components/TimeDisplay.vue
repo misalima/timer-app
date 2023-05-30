@@ -1,11 +1,13 @@
 <script setup lang="ts">
-    import {ref, computed, watch} from 'vue'
+    
+import {ref, computed, watch} from 'vue'
     
     const clock = ref("00:00:00")
     const props = defineProps<{
         duration: number,
         isStarted: boolean
     }>()
+    let intervalId:number
     
     const isStarted = computed(()=> {
         return props.isStarted
@@ -15,20 +17,28 @@
         return props.duration
     })
 
-
+    let storedDuration = props.duration
 
     const startTimer = function() {
-        let time:number = props.duration
-        console.log(time)
-        setInterval(()=> {
-            updateDisplay()
-            time--
+        console.log(storedDuration)
+        intervalId = setInterval(()=> {
+            if(storedDuration<=0) {
+                clearInterval(intervalId)
+            } else {
+                console.log(storedDuration)
+                updateDisplay(storedDuration-1)
+                storedDuration--
+            }
         }, 1000)
         
     }
 
-    function updateDisplay() {
-        let time = props.duration
+    const stopTimer = function() {
+        clearInterval(intervalId)
+    }
+
+    function updateDisplay(time:number) {
+        
         let hours, minutes, seconds:number
 
         hours = (Math.floor((time / 60)/60))
@@ -42,8 +52,21 @@
         clock.value = `${hourString}:${minuteString}:${secondsString}`
     }
     
-    watch(isStarted, startTimer)
-    watch(duration, updateDisplay)
+    watch(duration, ()=> {
+        
+        storedDuration = duration.value
+        updateDisplay(storedDuration)
+        console.log("Changed")
+
+    } )
+    watch(isStarted, () => {
+        if(isStarted.value) {
+            startTimer()
+        } else {
+            stopTimer()
+        }   
+    })
+    
     
 
     

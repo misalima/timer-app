@@ -1,5 +1,8 @@
 <script setup lang="ts">
   import Timer from './components/Timer.vue'
+  import { ref } from 'vue';
+  
+  
 </script>
 
 <template>

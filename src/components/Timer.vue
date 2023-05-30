@@ -2,25 +2,32 @@
     import TimeDisplay from './TimeDisplay.vue';
     import { ref } from 'vue';
 
-    const duration = ref(15)
+    
+    const duration = ref(0)
     const isStarted = ref(false)
-    let updatedDuration:number
+    
 
     function setDuration(time:number){
         
-        updatedDuration = time
-        console.log(updatedDuration, typeof(updatedDuration));
+        duration.value = time
         
     }
     
-    function toggleClockState() {
-        if(isStarted.value) {
-            isStarted.value = false
-        } else {
+    function startClock() {
+        if(!isStarted.value) {
+            console.log("toggle")
             isStarted.value = true
-        }
+        } 
         
     }
+    
+    function pauseClock() {
+        if(isStarted.value) {
+            console.log("toggle")
+            isStarted.value = false
+        }
+    }
+
     
     
     
@@ -28,19 +35,19 @@
 
 <template>
     <div class="container">
-        <TimeDisplay :duration="updatedDuration" :is-started="isStarted"/>
+        <TimeDisplay :duration="duration" :is-started="isStarted"/>
         <div class="control-buttons">
-            <button><font-awesome-icon icon="fa-solid fa-play" size="xl"/></button>
-            <button><font-awesome-icon icon="fa-solid fa-pause" size="xl" /></button>
-            <button @click="toggleClockState()"><font-awesome-icon icon="fa-solid fa-plus-circle" size="xl"/></button>
+            <button  @click="startClock()"><font-awesome-icon icon="fa-solid fa-play" size="xl"/></button>
+            <button  @click="pauseClock()"><font-awesome-icon icon="fa-solid fa-pause" size="xl" /></button>
+            <button><font-awesome-icon icon="fa-solid fa-plus-circle" size="xl"/></button>
         </div>
         <div class="presets-buttons">
             <button @click="setDuration(3600)">1h</button>
             <button>{{duration}}</button>
             <button>15min</button>
         </div>
-        <button @click="setDuration(duration)" class="set-custom-btn">Set custom time</button>
-        <input v-model.number="duration" type="number">
+        <button class="set-custom-btn">Set custom time</button>
+        <input v-model.number="duration" type="number" min="0" step="10">
     </div>
 </template>
 
