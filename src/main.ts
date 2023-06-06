@@ -8,6 +8,4 @@ import { faPlay, faPause, faPlusCircle } from '@fortawesome/free-solid-svg-icons
 
 library.add(faPlay, faPause, faPlusCircle)
 
-createApp(App)
-.component('font-awesome-icon', FontAwesomeIcon)
-.mount('#app')
+createApp(App).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
