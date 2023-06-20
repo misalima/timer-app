@@ -2,11 +2,21 @@
 import TimeDisplay from './TimeDisplay.vue'
 import { ref } from 'vue'
 
-const duration = ref(0)
+const timeInput = ref("00:00:00")
 const isStarted = ref(false)
 let updatedDuration = ref(0)
 
-function setDuration(time: number) {
+
+
+function setDuration(timeInput: string) {
+  console.log(timeInput)
+  const hours = parseInt(timeInput.slice(0,2))
+  const minutes = parseInt(timeInput.slice(3,5))
+  const seconds = parseInt(timeInput.slice(6,8))
+
+  const time = seconds + (minutes * 60) + (hours * 3600)
+  
+
   if (time >= 0 && time < 360000) {
     updatedDuration.value = time
     console.log(updatedDuration.value)
@@ -24,6 +34,7 @@ function startClock() {
     if (updatedDuration.value > 0) {
       console.log('toggle')
       isStarted.value = true
+      timeInput.value = "00:00:00"
     }
   }
 }
@@ -51,28 +62,29 @@ function decreaseClock() {
       :is-started="isStarted"
     />
     <div class="control-buttons">
-      <button @click="startClock()"><font-awesome-icon icon="fa-solid fa-play" size="xl" /></button>
-      <button @click="pauseClock()">
+      <button :class="{ disabled: isStarted }"  title="Start" @click="startClock()"><font-awesome-icon icon="fa-solid fa-play" size="xl" /></button>
+      <button :class="{ disabled: !isStarted }" title="Pause/Stop" @click="pauseClock()">
         <font-awesome-icon icon="fa-solid fa-pause" size="xl" />
       </button>
-      <button @click="addDuration(10)">
+      <button title="+10 Seconds"  @click="addDuration(10)">
         <font-awesome-icon icon="fa-solid fa-plus-circle" size="xl" />
       </button>
     </div>
     <div class="presets-buttons">
-      <button :class="{ disabled: isStarted }" :disabled="isStarted" @click="setDuration(3600)">
+      <button title="Set Preset" :class="{ disabled: isStarted }" :disabled="isStarted" @click="setDuration('01:00:00')">
         1h
       </button>
-      <button :class="{ disabled: isStarted }" :disabled="isStarted" @click="setDuration(1800)">
+      <button title="Set Preset" :class="{ disabled: isStarted }" :disabled="isStarted" @click="setDuration('00:30:00')">
         30min
       </button>
-      <button :class="{ disabled: isStarted }" :disabled="isStarted" @click="setDuration(900)">
+      <button title="Set Preset" :class="{ disabled: isStarted }" :disabled="isStarted" @click="setDuration('00:15:00')">
         15min
       </button>
     </div>
-
-    <button @click="setDuration(duration)" class="set-custom-btn">Set custom time</button>
-    <input v-model.number="duration" type="number" min="0" step="10" />
+    <input type="time" step="2" v-model="timeInput" />
+    <button :class="{ disabled: isStarted }" :disabled="isStarted"  @click="setDuration(timeInput)" class="set-custom-btn">Set custom time</button>
+    
+    
   </div>
 </template>
 
@@ -125,9 +137,12 @@ function decreaseClock() {
   transition: background 200ms;
 }
 
-.presets-buttons button:hover,
-.presets-buttons button:active {
+.presets-buttons button:hover {
   background-color: var(--color-dark);
+}
+
+.control-buttons button:active, .presets-buttons button:active {
+  background-color: #01384e;
 }
 
 button.set-custom-btn {
@@ -151,6 +166,7 @@ button.set-custom-btn:active {
 button.disabled {
   background-color: #acacac;
   cursor: not-allowed;
+  color: white;
 }
 
 button.disabled:hover {
@@ -168,5 +184,17 @@ button.disabled:hover {
     padding: 16px 0;
     border-radius: 16px;
   }
+}
+
+input[type=time] {
+  border: none;
+  border-radius: 16px;
+  text-align: center;
+  padding: 18px;
+  color: var(--color-dark);
+  font-size: 2.5em;
+  font-family: helvetica;
+  width: 90%;
+  cursor: pointer;
 }
 </style>
