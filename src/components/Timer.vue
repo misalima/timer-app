@@ -190,7 +190,7 @@ input[type=time] {
   border: none;
   border-radius: 16px;
   text-align: center;
-  padding: 18px;
+  padding: 36px 18px;
   color: var(--color-dark);
   font-size: 2.5em;
   font-family: helvetica;
