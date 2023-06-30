@@ -4,9 +4,12 @@ This is a simple countdown timer built with Vue3 and TypeScript. I made this pro
 
 ## Screenshots
 
+### ->[Check out live project](http://misalima.github.io/timer-app)
+
 ![home screenshot](screenshots/home.png "Application initial view")
 ![time running screenshot](screenshots/running.png "Clock ticking")
 ![selecting time screenshot](screenshots/selecting.png "Setting custom time(Chrome Web Browser)")
+
 ## What it does
 The user can use buttons to set predefined times to countdown, start and pause/stop, and increase time by 10 seconds. There is also a time input which can be used to set custom time. The timer makes sound as time decreases, and when time is up, but the user can turn off sound by clicking a button. The app is responsive and should work in smaller-screen devices.
 
