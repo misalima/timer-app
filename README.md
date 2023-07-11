@@ -1,6 +1,6 @@
 # Vue Timer App
 
-This is a simple countdown timer built with Vue3 and TypeScript. I made this project to apply my recently acquired knowledge of Vue.js, a very powerful JavaScript framework. I also started learning TypeScript basic syntax, so I used it in the project as well. 
+This is a simple countdown timer built with Vue3 and TypeScript. I started this project to apply my recently acquired knowledge of Vue.js, a very powerful JavaScript framework. I also started learning basic TypeScript syntax, so I used it in the project as well. It's still a work on progress. 
 
 ## Screenshots
 
@@ -29,7 +29,7 @@ I built this project by myself. I designed it and tried to solve problems on my 
 The app isn't completely finished yet, and there are still some issues regarding browser compatibility and responsiveness. Feel free to contribute by: 
 
 - Reporting bugs: If you encounter any bugs, please let us know. Open up an issue and let us know the problem.
-- Contributing with code: If you are a developer and want to contribute, follow the instructions below to get started!
+- Contributing with code: If you are a developer and want to contribute, feel free to address an issue and make a pull request!
 - Making Suggestions: If you don't want to code but have some awesome ideas, open up an issue explaining some updates or imporvements you would like to see!
 - Adding Documentation: If you see the need for some additional documentation, feel free to add some!
 
